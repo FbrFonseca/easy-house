@@ -1,0 +1,7 @@
+{
+  "name": "Easy-House",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
