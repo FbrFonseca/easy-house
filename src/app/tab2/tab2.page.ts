@@ -1,15 +1,28 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { IonMenuButton, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonList, IonButton, IonPopover, IonInput, IonButtons, IonLabel } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { AdCardComponent } from "../widgets/ad-card/ad-card.component";
 
 @Component({
+  standalone: true,
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent]
+  imports: [FormsModule, IonLabel, IonMenuButton, IonButtons, IonMenu, IonInput, IonPopover, IonButton, IonList, IonItem, IonHeader, IonToolbar, IonTitle, IonContent, AdCardComponent]
 })
 export class Tab2Page {
 
-  constructor() {}
 
+  filters = {
+    minPrice: null,
+    maxPrice: null,
+    bedrooms: null,
+    location: '',
+  };
+
+
+  constructor() {
+  }
+
+  
 }

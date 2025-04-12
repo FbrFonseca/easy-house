@@ -1,17 +1,92 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu contentId="main-content">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title>Select Filters</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item>
+        <ion-button id="price-trigger">Price Range</ion-button>
+        <ion-popover size="cover" trigger="price-trigger" triggerAction="click">
+          <ng-template>
+            <ion-content class="ion-padding">
+              <ion-item>
+                <ion-label position="stacked">Min Price</ion-label>
+                <ion-input type="number" [(ngModel)]="filters.minPrice"/>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Max Price</ion-label>
+                <ion-input type="number" [(ngModel)]="filters.maxPrice"/>
+              </ion-item>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+
+      <ion-item>
+        <ion-button id="bedrooms-trigger">Bedrooms</ion-button>
+        <ion-popover size="cover" trigger="bedrooms-trigger" triggerAction="click">
+          <ng-template>
+            <ion-content class="ion-padding">
+              <ion-label position="stacked">Minimun Bedrooms</ion-label>
+              <ion-input type="number" [(ngModel)]="filters.bedrooms" />
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+
+      <ion-item>
+        <ion-button id="location-trigger">Location</ion-button>
+        <ion-popover size="cover" trigger="location-trigger" triggerAction="click">
+          <ng-template>
+            <ion-content class="ion-padding">
+              <ion-label position="stacked">Enter Location</ion-label>
+              <ion-input type="text" [(ngModel)]="filters.location" />
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+
+      <ion-item>
+        <ion-button id="sort-trigger">Sort By</ion-button>
+        <ion-popover size="cover" trigger="sort-trigger" triggerAction="click">
+          <ng-template>
+            <ion-list>
+              <ion-item button>By Newest</ion-item>
+              <ion-item button>By Lowest</ion-item>
+              <ion-item button>By Highest</ion-item>
+              <ion-item button>By views</ion-item>
+            </ion-list>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Filters</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <app-ad-card></app-ad-card>
+    <app-ad-card></app-ad-card>
+    <app-ad-card></app-ad-card>
+    <app-ad-card></app-ad-card>
+    <app-ad-card></app-ad-card>
+    <app-ad-card></app-ad-card>
+    <app-ad-card></app-ad-card>
+    <app-ad-card></app-ad-card>
+    <app-ad-card></app-ad-card>
+    <app-ad-card></app-ad-card>
+    
+  </ion-list>
 </ion-content>
