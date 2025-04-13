@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AdCardComponent } from "../widgets/ad-card/ad-card.component";
 
 @Component({
-  standalone: true,
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],

@@ -13,6 +13,7 @@ export class AdCardComponent implements OnInit {
 
   constructor(private navCtrl: NavController) {
     addIcons({eyeOutline, chatbubblesOutline, bookmarkOutline})
+
   }
   
   openAd(adId: string) {

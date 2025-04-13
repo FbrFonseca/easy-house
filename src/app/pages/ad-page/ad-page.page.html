@@ -1,13 +1,43 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>ad-page</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Ad name </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">ad-page</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="image-container">
+    <ion-img src="assets/img/image.png" />
+  </div>
+  <div class="description-container">
+    <div class="info">
+      <ion-icon name="location-outline" />
+      <ion-label>Location</ion-label>
+      <ion-icon name="pricetag-outline" />
+      <ion-label>Price</ion-label>
+      <ion-icon name="bed-outline" />
+      <ion-label>Bedrooms</ion-label>
+      <ion-icon name="water-outline" />
+      <ion-label>Toilets</ion-label>
+    </div>
+
+    <div class="social">
+      <ion-icon name="eye-outline" />
+      <ion-label>Views</ion-label>
+      <ion-icon name="bookmark-outline" />
+      <ion-label>Bookmark</ion-label>
+      <ion-icon name="chatbubbles-outline" />
+      <ion-label>Chat</ion-label>
+    </div>
+
+    <ion-text>
+      <h1>Super Good House in Whitehall</h1>
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </ion-text>
+    
+  </div>
 </ion-content>
