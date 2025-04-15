@@ -10,4 +10,53 @@
     object-fit: cover;
     border-radius: 8px;
   }
+
+  ion-item.radio-item {
+    --background: #ffffff;
+    --inner-padding-end: 0;
+    border-radius: 12px;
+    margin: 10px 0;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  ion-label.main-label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  ion-radio-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+  }
+
+  ion-radio {
+    --color-checked: #3880ff; 
+    --color: #666;
+    transform: scale(1.2);
+  }
+
+  ion-item.option {
+    --background: transparent;
+    --min-height: 40px;
+    margin: 0;
+    padding: 0 12px;
+    align-items: center;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+
+  ion-item.option:hover {
+    background-color: #f0f0f0;
+  }
+
+  ion-item.option ion-label {
+    font-size: 14px;
+    margin-left: 8px;
+  }
 }

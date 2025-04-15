@@ -1,6 +1,7 @@
 export interface Ad {
   id?: string;
   title: string;
+  adType: string;
   location: string;
   description: string;
   price: number;

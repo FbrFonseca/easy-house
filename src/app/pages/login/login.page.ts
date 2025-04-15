@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavController, ToastController } from '@ionic/angular';
 import { User } from 'firebase/auth';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonImg, IonGrid, IonCol, IonButton, IonRow, IonInput } from '@ionic/angular/standalone';
+import { IonContent, IonButtons, IonHeader, IonBackButton, IonTitle, IonToolbar, IonImg, IonGrid, IonCol, IonButton, IonRow, IonInput } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline } from 'ionicons/icons';
 
@@ -13,7 +13,7 @@ import { arrowBackOutline } from 'ionicons/icons';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonInput, IonContent, IonHeader, IonTitle, IonToolbar,
+  imports: [IonInput, IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons,
      CommonModule, FormsModule, ReactiveFormsModule, IonImg, IonGrid, IonCol, IonButton, IonRow]
 })
 
@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
     console.log("email:", this.gEmail);
     this.authService.loginUser(this.gEmail, this.gPassword).then(() => {
       console.log("login successful");
-      this.navCtrl.navigateBack("/");
+      this.navCtrl.navigateRoot("/tabs/tab1");
     }).catch(async error => {
       const toast = await this.toastCtrl.create({
         message: error.message,

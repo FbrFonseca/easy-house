@@ -9,15 +9,15 @@ import { Ad } from '../models/ad.model';
 })
 export class AdService {
 
-  private firestore = inject(Firestore)
+  private firestore = inject(Firestore);
 
   getAllAds(): Observable<Ad[]> {
     const adsRef = collection(this.firestore, 'Ads');
     return collectionData(adsRef, {idField: "id"}) as Observable<Ad[]>;
   }
 
-  getAdById(adId: string): Observable<Ad> {
-    const adDoc = doc(this.firestore, `ads/${adId}`);
+  getAdById(id: string): Observable<Ad> {
+    const adDoc = doc(this.firestore, `Ads/${id}`);
     return docData(adDoc, { idField: 'id' }) as Observable<Ad>;
   }
 

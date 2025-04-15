@@ -7,21 +7,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="ad">
+<ion-content *ngIf="ad">
+  <div class="carousel-wrapper">
+    <img [src]="ad.images[currentImageIndex]" class="carousel-img" *ngIf="ad.images?.length" />
 
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" *ngFor="let image of ad?.images">
-        <img [src]="image" class="carousel-img" />
-      </div>
+    <div class="carousel-controls">
+      <ion-button fill="clear" (click)="prevImage()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-label>{{ currentImageIndex + 1 }} / {{ ad.images.length }}</ion-label>
+      <ion-button fill="clear" (click)="nextImage()">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-button>
     </div>
-  
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
   </div>
-  
-  
+
+  <ion-chip color="primary">
+    <ion-label>{{ ad.adType === 'rent' ? 'For Rent' : 'For Sale' }}</ion-label>
+  </ion-chip>
   
 
   <div class="description-container">
@@ -42,7 +45,7 @@
       <ion-icon name="bookmark-outline" />
       <ion-label>{{ ad.bookmarks || 0 }}</ion-label>
       <ion-icon name="chatbubbles-outline" />
-      <ion-label>Chat</ion-label>
+      <ion-label>Message</ion-label>
     </div>
 
     <ion-text>

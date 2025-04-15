@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AdService } from 'src/app/services/ad.service';
+import { inject } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { NavController } from '@ionic/angular';
 import {
+  IonSegment,
+  IonSegmentButton,
   IonHeader,
   IonToolbar,
   IonTitle,
@@ -13,17 +18,22 @@ import {
   IonItem,
   IonTextarea,
   IonButton,
-  IonImg
-} from '@ionic/angular/standalone';
+  IonRadio,
+  IonButtons,
+  IonImg, IonBackButton } from '@ionic/angular/standalone';
 
 @Component({
   standalone: true,
   selector: 'app-create-ad',
   templateUrl: './create-ad.page.html',
   styleUrls: ['./create-ad.page.scss'],
-  imports: [
+  imports: [IonBackButton, 
+    IonSegmentButton,
     IonButton,
+    IonButtons,
+    IonSegment,
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     IonLabel,
     IonHeader,
@@ -37,11 +47,22 @@ import {
   ],
 })
 export class CreateAdPage {
-  ad: any = {
+  private auth: Auth = inject(Auth);
+  userId: string = this.auth.currentUser?.uid || "";
+
+  ad = {
     title: '',
+    adType: '',
+    location: '',
     description: '',
-    price: null,
-    images: [],
+    price: 0,
+    bedrooms: 0,
+    bathrooms: 0,
+    images: [] as string [],
+    views: 0,
+    bookmarks: 0,
+    createdAt: null,
+    ownerId: this.userId || '', 
   };
 
   constructor(private adService: AdService, private navCtrl: NavController) {}
@@ -76,11 +97,19 @@ export class CreateAdPage {
   }
 
   async submitAd() {
+    console.log('Ad being submitted:', this.ad);
+    console.log("ad Type: ", this.ad.adType)
+    if (!['rent', 'sell'].includes(this.ad.adType)) {
+      alert('Please select if the ad is for rent or sale.');
+      return;
+    }
+    
     if (
       this.ad.title &&
       this.ad.description &&
       this.ad.price &&
-      this.ad.images.length
+      this.ad.images.length &&
+      this.ad.adType
     ) {
       await this.adService.createAd(this.ad);
       this.navCtrl.back();
