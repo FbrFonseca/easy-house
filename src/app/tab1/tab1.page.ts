@@ -56,7 +56,7 @@ export class Tab1Page implements OnInit {
     })
   }
 
-  async fetchUserAds() {
+  fetchUserAds() {
     if (this.userId) {
       this.adService.getAdsByUser(this.userId).subscribe((ads) => {
         this.ads = ads;

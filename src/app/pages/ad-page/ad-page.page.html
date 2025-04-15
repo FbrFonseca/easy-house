@@ -8,24 +8,27 @@
 </ion-header>
 
 <ion-content *ngIf="ad">
-  <div class="carousel-wrapper">
-    <img [src]="ad.images[currentImageIndex]" class="carousel-img" *ngIf="ad.images?.length" />
-
-    <div class="carousel-controls">
-      <ion-button fill="clear" (click)="prevImage()">
-        <ion-icon name="chevron-back-outline"></ion-icon>
-      </ion-button>
-      <ion-label>{{ currentImageIndex + 1 }} / {{ ad.images.length }}</ion-label>
-      <ion-button fill="clear" (click)="nextImage()">
-        <ion-icon name="chevron-forward-outline"></ion-icon>
-      </ion-button>
-    </div>
+  <div class="carousel-container" *ngIf="ad.images?.length">
+    <img [src]="ad.images[currentImageIndex]" class="carousel-img" />
+  
+    <ion-button fill="clear" size="small" class="carousel-button left"
+      *ngIf="ad.images.length > 1"
+      (click)="prevImage(); $event.stopPropagation()">
+      ‹
+    </ion-button>
+  
+    <ion-button fill="clear" size="small" class="carousel-button right"
+      *ngIf="ad.images.length > 1"
+      (click)="nextImage(); $event.stopPropagation()">
+      ›
+    </ion-button>
   </div>
+  
 
   <ion-chip color="primary">
     <ion-label>{{ ad.adType === 'rent' ? 'For Rent' : 'For Sale' }}</ion-label>
   </ion-chip>
-  
+
 
   <div class="description-container">
     <div class="info">

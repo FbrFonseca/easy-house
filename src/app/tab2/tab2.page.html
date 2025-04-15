@@ -76,17 +76,14 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- needs to be remade from the db-->
-  <ion-list>
-    <app-ad-card></app-ad-card>
-    <app-ad-card></app-ad-card>
-    <app-ad-card></app-ad-card>
-    <app-ad-card></app-ad-card>
-    <app-ad-card></app-ad-card>
-    <app-ad-card></app-ad-card>
-    <app-ad-card></app-ad-card>
-    <app-ad-card></app-ad-card>
-    <app-ad-card></app-ad-card>
-    <app-ad-card></app-ad-card>
+  <ion-list *ngIf="ads.length; else noAds">
+    <app-ad-card *ngFor="let ad of ads" [ad]="ad"></app-ad-card>
   </ion-list>
+  
+  <ng-template #noAds>
+    <ion-item>
+      <ion-label>No ads found.</ion-label>
+    </ion-item>
+  </ng-template>
+  
 </ion-content>
