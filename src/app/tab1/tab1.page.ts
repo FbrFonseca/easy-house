@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { onAuthStateChanged } from 'firebase/auth';
+import { Auth } from '@angular/fire/auth';
 import { NavController } from '@ionic/angular';
 import {
   IonButton,
@@ -7,7 +9,8 @@ import {
   IonIcon,
   IonContent,
   IonHeader,
-  IonList } from '@ionic/angular/standalone';
+  IonList,
+  IonItem } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add, bookmarks, chatbubble } from 'ionicons/icons';
 import { AdCardComponent } from '../widgets/ad-card/ad-card.component';
@@ -20,6 +23,7 @@ import { AdService } from '../services/ad.service';
   styleUrls: ['tab1.page.scss'],
   imports: [
     IonList,
+    IonItem,
     AdCardComponent,
     IonHeader,
     CommonModule,
@@ -32,17 +36,34 @@ import { AdService } from '../services/ad.service';
 export class Tab1Page implements OnInit {
   private navCtrl = inject(NavController);
   private adService = inject(AdService);
+  private auth = inject(Auth);
 
   ads: Ad[] = [];
+  userId: string = "";
 
   constructor() {
     addIcons({ bookmarks, add, chatbubble });
   }
 
   ngOnInit() {
-    this.adService.getAllAds().subscribe((ads) => {
-       this.ads = ads;
-    });
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.userId = user.uid;
+        this.fetchUserAds();
+      } else {
+        console.log("user not logged in");
+      }
+    })
+  }
+
+  async fetchUserAds() {
+    if (this.userId) {
+      this.adService.getAdsByUser(this.userId).subscribe((ads) => {
+        this.ads = ads;
+      })
+    } else {
+      console.log("no user logged");
+    }
   }
 
   showBookmarks() {

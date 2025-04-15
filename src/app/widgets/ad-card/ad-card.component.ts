@@ -37,8 +37,13 @@ export class AdCardComponent {
   }
   
   openAd(adId: string | undefined) {
-    this.navCtrl.navigateForward(`/ad-page/${adId}`)
+    console.log("Opening ad with ID:", adId);
+    if (adId) {
+      this.navCtrl.navigateForward(`/ad-page/${adId}`);
+    }
   }
+  
+  
 
   bookViewing() {
 

@@ -13,8 +13,15 @@
     </ion-buttons>
   </div>
 </ion-header>
-<ion-content>
-  <ion-list>
-    <app-ad-card *ngFor="let ad of ads" [ad]="ad"></app-ad-card>
-  </ion-list>  
+<ion-content class="ion-padding">
+  <ion-list *ngIf="ads.length > 0; else noAds">
+    <ion-item *ngFor="let ad of ads">
+      <app-ad-card [ad]="ad"></app-ad-card>
+    </ion-item>
+  </ion-list>
+  
+  <ng-template #noAds>
+    <p style="text-align: center; margin-top: 2rem;">No ads found for your account.</p>
+  </ng-template>
+  
 </ion-content>
