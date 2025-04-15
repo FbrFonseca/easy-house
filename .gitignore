@@ -74,3 +74,5 @@ environments/
 /src/environments/
 src/environments/environment.ts
 src/environments/environment.prod.ts
+environment.prod.ts
+environment.ts

@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="image-container">
+    <ion-img
+      src="https://images.pexels.com/photos/7768228/pexels-photo-7768228.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+    </ion-img>
+  </div>
+
+  <form (ngSubmit)="registerUser()">
+    <ion-list lines="full">
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" required [(ngModel)]="email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" required [(ngModel)]="password" name="password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input type="email" required [(ngModel)]="name" name="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Surname</ion-label>
+        <ion-input type="email" required [(ngModel)]="surname" name="surnamme"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Phone Number</ion-label>
+        <ion-input type="tel" [(ngModel)]="phone" name="phone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Address</ion-label>
+        <ion-input type="text" [(ngModel)]="address" name="address"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Occupation</ion-label>
+        <ion-input type="text" [(ngModel)]="occupation" name="occupation"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button expand="block" type="submit" class="register-button">Register</ion-button>
+    <ion-text class="login-link">
+      Already have an account?
+      <a (click)="navigateToLogin()">Log in</a>
+    </ion-text>
+  </form>
+
+</ion-content>

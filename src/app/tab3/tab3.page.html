@@ -5,43 +5,50 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <div class="profile-header">
-
+    
     <div class="edit">
-      <ion-button>
-        <ion-icon name="pencil-outline" size="large"></ion-icon>
+      <ion-button fill="clear" (click)="toggleEditMode()">
+        <ion-icon [name]="isEditing ? 'checkmark-outline' : 'pencil-outline'" size="large"></ion-icon>
       </ion-button>
     </div>
 
     <ion-avatar class="profile-avatar">
-      <img src="data:image/jpeg;base64,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" alt="Profile Picture" />
+      <img [src]="avatar || 'assets/img/avatar-default.svg'" alt="Profile Picture" />
     </ion-avatar>
-    <h2 class="profile-name">Fabricio Fonseca</h2>
-    <p class="profile-email">ffonseca&#64;easyhouse.com</p>
+
+    <ion-item lines="none" *ngIf="isEditing">
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </ion-item>
+
+    <h2 class="profile-name">{{ profileData.name || 'No Name' }}</h2>
+    <p class="profile-email">{{ profileData.email }}</p>
   </div>
 
   <ion-list>
     <ion-item>
       <ion-icon name="call-outline" slot="start"></ion-icon>
-      <ion-label>+353 0129301293</ion-label>
+      <ion-input [(ngModel)]="profileData.phone" [readonly]="!isEditing"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-icon name="location-outline" slot="start"></ion-icon>
-      <ion-label>Dublin, Ireland</ion-label>
+      <ion-input [(ngModel)]="profileData.address" [readonly]="!isEditing"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-icon name="briefcase-outline" slot="start"></ion-icon>
-      <ion-label>Software Developer</ion-label>
+      <ion-input [(ngModel)]="profileData.occupation" [readonly]="!isEditing"></ion-input>
     </ion-item>
   </ion-list>
-  
+
+  <div class="save-button ion-padding" *ngIf="isEditing">
+    <ion-button expand="full" (click)="editProfile()">Save Changes</ion-button>
+  </div>
+
   <div class="logout">
     <ion-button (click)="logoutUser()">
       <ion-icon name="exit-outline" size="large"></ion-icon>
     </ion-button>
   </div>
 </ion-content>
-

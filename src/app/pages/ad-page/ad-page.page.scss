@@ -1,0 +1,30 @@
+.carousel-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+}
+
+.swiper-pagination-bullet-active {
+  background: #fff;
+}
+
+.description-container {
+  padding: 16px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.social ion-icon {
+  margin-right: 4px;
+}

@@ -1,43 +1,53 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
     </ion-buttons>
-    <ion-title> Ad name </ion-title>
+    <ion-title>{{ ad?.title || 'Ad Details' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="image-container">
-    <ion-img src="assets/img/image.png" />
+<ion-content [fullscreen]="true" *ngIf="ad">
+
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let image of ad?.images">
+        <img [src]="image" class="carousel-img" />
+      </div>
+    </div>
+  
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
   </div>
+  
+  
+  
+
   <div class="description-container">
     <div class="info">
       <ion-icon name="location-outline" />
-      <ion-label>Location</ion-label>
+      <ion-label>{{ ad.location }}</ion-label>
       <ion-icon name="pricetag-outline" />
-      <ion-label>Price</ion-label>
+      <ion-label>€{{ ad.price }}</ion-label>
       <ion-icon name="bed-outline" />
-      <ion-label>Bedrooms</ion-label>
+      <ion-label>{{ ad.bedrooms }} Bedrooms</ion-label>
       <ion-icon name="water-outline" />
-      <ion-label>Toilets</ion-label>
+      <ion-label>{{ ad.bathrooms }} Toilets</ion-label>
     </div>
 
     <div class="social">
       <ion-icon name="eye-outline" />
-      <ion-label>Views</ion-label>
+      <ion-label>{{ ad.views || 0 }}</ion-label>
       <ion-icon name="bookmark-outline" />
-      <ion-label>Bookmark</ion-label>
+      <ion-label>{{ ad.bookmarks || 0 }}</ion-label>
       <ion-icon name="chatbubbles-outline" />
       <ion-label>Chat</ion-label>
     </div>
 
     <ion-text>
-      <h1>Super Good House in Whitehall</h1>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      <h1>{{ ad.title }}</h1>
+      <p>{{ ad.description }}</p>
     </ion-text>
-    
   </div>
 </ion-content>

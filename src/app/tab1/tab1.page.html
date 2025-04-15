@@ -1,12 +1,20 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
-  </ion-toolbar>
+<ion-header>
+  <div class="header-menu">
+    <ion-buttons>
+      <ion-button (click)="showBookmarks()">
+        <ion-icon name="bookmarks"></ion-icon>
+      </ion-button>
+      <ion-button (click)="createAd()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+      <ion-button (click)="showMessages()">
+        <ion-icon name="chatbubble"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </div>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  here will be a map + add post + google map + notigications
-
+<ion-content>
+  <ion-list>
+    <app-ad-card *ngFor="let ad of ads" [ad]="ad"></app-ad-card>
+  </ion-list>  
 </ion-content>

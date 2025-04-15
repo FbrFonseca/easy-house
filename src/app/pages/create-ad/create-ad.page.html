@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create New Ad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label position="floating">Title</ion-label>
+    <ion-input [(ngModel)]="ad.title"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Description</ion-label>
+    <ion-textarea [(ngModel)]="ad.description"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Price</ion-label>
+    <ion-input type="number" [(ngModel)]="ad.price"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Upload Images</ion-label>
+    <input type="file" accept="image/*" multiple (change)="onImageSelected($event)">
+  </ion-item>
+
+  <div class="image-preview">
+    <div *ngFor="let image of ad.images; let i = index" class="preview-wrapper">
+      <ion-img [src]="image" class="preview-img"></ion-img>
+      <ion-button color="danger" size="small" (click)="removeImage(i)">X</ion-button>
+    </div>
+  </div>
+  
+  <ion-item>
+    <ion-label position="floating">Location</ion-label>
+    <ion-input [(ngModel)]="ad.location"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="floating">Bedrooms</ion-label>
+    <ion-input type="number" [(ngModel)]="ad.bedrooms"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="floating">Bathrooms</ion-label>
+    <ion-input type="number" [(ngModel)]="ad.bathrooms"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" (click)="submitAd()">Submit Ad</ion-button>
+
+</ion-content>
