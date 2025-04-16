@@ -93,3 +93,12 @@ ion-label {
   overflow: hidden;
 }
 
+.booking-form {
+  padding: 16px;
+}
+
+ion-textarea {
+  --min-height: 80px;
+  --border-raious: 10px;
+}
+

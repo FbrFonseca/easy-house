@@ -10,15 +10,13 @@
 <ion-content *ngIf="ad">
   <div class="carousel-container" *ngIf="ad.images?.length">
     <img [src]="ad.images[currentImageIndex]" class="carousel-img" />
-  
-    <ion-button fill="clear" size="small" class="carousel-button left"
-      *ngIf="ad.images.length > 1"
+
+    <ion-button fill="clear" size="small" class="carousel-button left" *ngIf="ad.images.length > 1"
       (click)="prevImage(); $event.stopPropagation()">
       ‹
     </ion-button>
-  
-    <ion-button fill="clear" size="small" class="carousel-button right"
-      *ngIf="ad.images.length > 1"
+
+    <ion-button fill="clear" size="small" class="carousel-button right" *ngIf="ad.images.length > 1"
       (click)="nextImage(); $event.stopPropagation()">
       ›
     </ion-button>
@@ -33,7 +31,7 @@
   <div class="description-container">
     <div class="info">
       <ion-icon name="location-outline" />
-      <ion-label>{{ ad.location }}</ion-label>
+      <ion-label>{{ ad.eircode }}</ion-label>
       <ion-icon name="pricetag-outline" />
       <ion-label>€{{ ad.price }}</ion-label>
       <ion-icon name="bed-outline" />
@@ -44,17 +42,29 @@
 
     <div class="social">
       <!-- <ion-icon name="bookmark-outline" />
-      <ion-label>{{ ad.bookmarks || 0 }}</ion-label> -->      
+      <ion-label>{{ ad.bookmarks || 0 }}</ion-label> -->
     </div>
-
-    <ion-button [disabled]="hasBooked" (click)="bookViewing()">
-      <ion-icon name="chatbubbles-outline" />
-      <ion-label>{{ hasBooked ? 'View Booked' : 'Book a view' }}</ion-label>
-    </ion-button>
 
     <ion-text>
       <h1>{{ ad.title }}</h1>
       <p>{{ ad.description }}</p>
     </ion-text>
+
+    <div *ngIf="!hasBooked" class="booking-form">
+      <ion-item>
+        <ion-textarea [(ngModel)]="bookingMessage" placeholder="I'd like to view the house..."></ion-textarea>
+      </ion-item>
+
+      <ion-button expand="block" (click)="submitBooking()">
+        <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
+        <ion-label>Book a Viewing</ion-label>
+      </ion-button>
+    </div>
+
+    <ion-chip color="success" *ngIf="hasBooked">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      <ion-label>Viewing booked!</ion-label>
+    </ion-chip>
+
   </div>
 </ion-content>

@@ -15,6 +15,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  
   <ng-container *ngIf="!loading; else loadingSpinner">
     <ion-list *ngIf="ads.length > 0; else noAds">
       <ion-item *ngFor="let ad of ads">

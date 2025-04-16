@@ -2,11 +2,38 @@ import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { IonContent, IonChip, IonHeader, IonTitle, IonToolbar, IonImg, IonItem, IonList, IonButton, IonButtons, IonBackButton, IonIcon, IonLabel, IonText } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonChip,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonImg,
+  IonItem,
+  IonList,
+  IonButton,
+  IonButtons,
+  IonBackButton,
+  IonIcon,
+  IonLabel,
+  IonText,
+  IonTextarea,
+} from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { Navigation, Pagination } from 'swiper/modules';
 import { addIcons } from 'ionicons';
-import { locationOutline, pricetagOutline, bedOutline, waterOutline, eyeOutline, bookmarkOutline, chatbubblesOutline, chevronBackOutline, chevronForwardOutline } from 'ionicons/icons';
+import {
+  locationOutline,
+  pricetagOutline,
+  bedOutline,
+  waterOutline,
+  eyeOutline,
+  bookmarkOutline,
+  chatbubblesOutline,
+  chevronBackOutline,
+  chevronForwardOutline,
+  checkmarkCircleOutline,
+} from 'ionicons/icons';
 import { AdService } from 'src/app/services/ad.service';
 import { BookingService } from 'src/app/services/booking.service';
 import { Ad } from 'src/app/models/ad.model';
@@ -19,32 +46,55 @@ declare var google: any;
   templateUrl: './ad-page.page.html',
   styleUrls: ['./ad-page.page.scss'],
   standalone: true,
-  imports: [IonButton, IonChip, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton, IonIcon, IonLabel, IonText ]
+  imports: [
+    IonTextarea,
+    IonButton,
+    IonChip,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    IonButtons,
+    IonBackButton,
+    IonIcon,
+    IonLabel,
+    IonText,
+    IonItem,
+  ],
 })
-
 export class AdPagePage implements OnInit {
   private route = inject(ActivatedRoute);
   private adService = inject(AdService);
   private bookingService = inject(BookingService);
   private authService = inject(AuthService);
 
-
-
   adId = '';
   ad: any = null;
   currentImageIndex = 0;
   hasBooked = false;
-
-  
+  bookingMessage = '';
 
   constructor() {
-    addIcons({chevronBackOutline,chevronForwardOutline,locationOutline,pricetagOutline,bedOutline,waterOutline,eyeOutline,bookmarkOutline,chatbubblesOutline});
+    addIcons({
+      locationOutline,
+      pricetagOutline,
+      bedOutline,
+      waterOutline,
+      chatbubblesOutline,
+      checkmarkCircleOutline,
+      chevronBackOutline,
+      chevronForwardOutline,
+      eyeOutline,
+      bookmarkOutline,
+    });
   }
 
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id') || '';
     if (this.adId) {
-      this.adService.getAdById(this.adId).subscribe(async ad => {
+      this.adService.getAdById(this.adId).subscribe(async (ad) => {
         this.ad = ad;
         try {
           await this.loadGoogleMapsScript();
@@ -59,15 +109,23 @@ export class AdPagePage implements OnInit {
   initMap() {
     if (!this.ad?.latitude || !this.ad?.longitude) return;
 
-    const map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
-      center: { lat: this.ad.latitude, lng: this.ad.longitude },
-      zoom: 15,
-    });
+    const map = new google.maps.Map(
+      document.getElementById('map') as HTMLElement,
+      {
+        center: { lat: this.ad.latitude, lng: this.ad.longitude },
+        zoom: 15,
+        disableDefaultUI: true,
+      }
+    );
 
     new google.maps.Marker({
       position: { lat: this.ad.latitude, lng: this.ad.longitude },
       map,
       title: this.ad.title,
+      icon: {
+        url: 'https://cdn-icons-png.flaticon.com/128/7720/7720526.png',
+        scaledSize: new google.maps.Size(40, 40),
+      },
     });
   }
 
@@ -88,11 +146,11 @@ export class AdPagePage implements OnInit {
   }
 
   loadMap() {
-    const map = new google.maps.Map(document.getElementById("map"), {
+    const map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: this.ad.latitude, lng: this.ad.longitude },
       zoom: 15,
     });
-  
+
     new google.maps.Marker({
       position: { lat: this.ad.latitude, lng: this.ad.longitude },
       map: map,
@@ -100,26 +158,45 @@ export class AdPagePage implements OnInit {
     });
   }
 
-  
-
   nextImage() {
     if (!this.ad?.images?.length) return;
-    this.currentImageIndex = (this.currentImageIndex + 1) % this.ad.images.length;
+    this.currentImageIndex =
+      (this.currentImageIndex + 1) % this.ad.images.length;
   }
 
   prevImage() {
     if (!this.ad?.images?.length) return;
-    this.currentImageIndex = (this.currentImageIndex - 1 + this.ad.images.length) % this.ad.images.length;
+    this.currentImageIndex =
+      (this.currentImageIndex - 1 + this.ad.images.length) %
+      this.ad.images.length;
   }
 
-  async bookViewing() {
+  async submitBooking() {
     const user = this.authService.getCurrentUser();
+    console.log('Current message:', this.bookingMessage);
     if (!user || !this.adId || this.hasBooked) return;
 
-    const message = `User ${user.email} is interested in viewing this property.`;
-    await this.bookingService.createBooking(user.uid, this.adId, message);
-    this.hasBooked = true;
-    console.log("booking created");
-  }
-}
+    const message =
+      this.bookingMessage.trim() ||
+      `User ${user.email} is interested in this property.`;
 
+    try {
+      await this.bookingService.createBooking(user.uid, this.adId, message);
+      this.hasBooked = true;
+      this.bookingMessage = '';
+      console.log('Booking submitted successfully');
+    } catch (error) {
+      console.error('Booking failed:', error);
+    }
+  }
+
+  // async bookViewing() {
+  //   const user = this.authService.getCurrentUser();
+  //   if (!user || !this.adId || this.hasBooked) return;
+
+  //   const message = `User ${user.email} is interested in viewing this property.`;
+  //   await this.bookingService.createBooking(user.uid, this.adId, message);
+  //   this.hasBooked = true;
+  //   console.log('booking created');
+  // }
+}

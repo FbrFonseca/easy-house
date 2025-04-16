@@ -49,10 +49,10 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
-    onAuthStateChanged(this.auth, (user) => {
+    onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         this.userId = user.uid;
-        this.fetchUserAds();
+        await this.fetchUserAds();
       } else {
         console.log("user not logged in");
         this.loading = false;

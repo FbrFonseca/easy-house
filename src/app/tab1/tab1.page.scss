@@ -1,5 +1,6 @@
 ion-content{
   position: relative;
+  --background: #b2dbf5;
 }
 
 ion-list{
@@ -10,6 +11,11 @@ ion-list{
   background-color: #b2dbf5;
   padding-top: 11vh;
   width: 100%;
+}
+
+ion-item{
+  --background: #b2dbf5;
+  --border-color: #b2dbf5;
 }
 
 .header-menu{
@@ -57,3 +63,4 @@ ion-icon{
   color: #888;
   font-size: 1.2rem;
 }
+
