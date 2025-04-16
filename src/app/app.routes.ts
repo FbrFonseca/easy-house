@@ -25,4 +25,8 @@ export const routes: Routes = [
     path: 'bookmarked-ads',
     loadComponent: () => import('./pages/bookmarked-ads/bookmarked-ads.page').then( m => m.BookmarkedAdsPage)
   },
+  {
+    path: 'my-bookings',
+    loadComponent: () => import('./pages/my-bookings/my-bookings.page').then( m => m.MyBookingsPage)
+  },
 ];

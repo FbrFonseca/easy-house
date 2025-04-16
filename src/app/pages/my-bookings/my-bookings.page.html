@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Bookings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="bookings$ | async as bookings">
+    <ion-item *ngFor="let booking of bookings">
+      <ion-label>
+        <h2>Ad ID: {{ booking.adId }}</h2>
+        <p>{{ booking.message }}</p>
+        <small>{{ booking.createAt?.toDate() | date:'medium' }}</small>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

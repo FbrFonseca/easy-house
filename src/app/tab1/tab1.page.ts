@@ -74,7 +74,7 @@ export class Tab1Page implements OnInit {
     this.navCtrl.navigateForward("/create-ad");
   }
 
-  showMessages() {
-    //redirects to messages page that lists all messages sent to ads
+  goToMyBookings() {
+    this.navCtrl.navigateForward("/my-bookings");
   }
 }
