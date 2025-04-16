@@ -43,11 +43,14 @@
     </div>
 
     <div class="social">
-      <ion-icon name="bookmark-outline" />
-      <ion-label>{{ ad.bookmarks || 0 }}</ion-label>
-      <ion-icon name="chatbubbles-outline" />
-      <ion-label>Message</ion-label>
+      <!-- <ion-icon name="bookmark-outline" />
+      <ion-label>{{ ad.bookmarks || 0 }}</ion-label> -->      
     </div>
+
+    <ion-button [disabled]="hasBooked" (click)="bookViewing()">
+      <ion-icon name="chatbubbles-outline" />
+      <ion-label>{{ hasBooked ? 'View Booked' : 'Book a view' }}</ion-label>
+    </ion-button>
 
     <ion-text>
       <h1>{{ ad.title }}</h1>

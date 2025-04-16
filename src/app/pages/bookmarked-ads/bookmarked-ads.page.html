@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Bookmarked Ads</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="bookmarkedAds.length === 0" class="empty-message">
+    <p>No bookmarked ads yet.</p>
+  </div>
+
+  <div *ngFor="let ad of bookmarkedAds">
+    <app-ad-card [ad]="ad"></app-ad-card>
+  </div>
+</ion-content>

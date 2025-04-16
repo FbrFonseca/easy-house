@@ -21,4 +21,8 @@ export const routes: Routes = [
     path: 'create-ad',
     loadComponent: () => import('./pages/create-ad/create-ad.page').then( m => m.CreateAdPage)
   },
+  {
+    path: 'bookmarked-ads',
+    loadComponent: () => import('./pages/bookmarked-ads/bookmarked-ads.page').then( m => m.BookmarkedAdsPage)
+  },
 ];

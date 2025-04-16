@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IonContent, IonChip, IonHeader, IonTitle, IonToolbar, IonImg, IonItem, IonList, IonButton, IonButtons, IonBackButton, IonIcon, IonLabel, IonText } from '@ionic/angular/standalone';
-import Swiper from 'swiper';
+import { AuthService } from 'src/app/services/auth.service';
 import { Navigation, Pagination } from 'swiper/modules';
 import { addIcons } from 'ionicons';
 import { locationOutline, pricetagOutline, bedOutline, waterOutline, eyeOutline, bookmarkOutline, chatbubblesOutline, chevronBackOutline, chevronForwardOutline } from 'ionicons/icons';
 import { AdService } from 'src/app/services/ad.service';
+import { BookingService } from 'src/app/services/booking.service';
 import { Ad } from 'src/app/models/ad.model';
 
 @Component({
@@ -21,11 +22,15 @@ import { Ad } from 'src/app/models/ad.model';
 export class AdPagePage implements OnInit {
   private route = inject(ActivatedRoute);
   private adService = inject(AdService);
+  private bookingService = inject(BookingService);
+  private authService = inject(AuthService);
+
 
 
   adId = '';
   ad: any = null;
   currentImageIndex = 0;
+  hasBooked = false;
 
   constructor() {
     addIcons({chevronBackOutline,chevronForwardOutline,locationOutline,pricetagOutline,bedOutline,waterOutline,eyeOutline,bookmarkOutline,chatbubblesOutline});
@@ -50,6 +55,16 @@ export class AdPagePage implements OnInit {
   prevImage() {
     if (!this.ad?.images?.length) return;
     this.currentImageIndex = (this.currentImageIndex - 1 + this.ad.images.length) % this.ad.images.length;
+  }
+
+  async bookViewing() {
+    const user = this.authService.getCurrentUser();
+    if (!user || !this.adId || this.hasBooked) return;
+
+    const message = `User ${user.email} is interested in viewing this property.`;
+    await this.bookingService.createBooking(user.uid, this.adId, message);
+    this.hasBooked = true;
+    console.log("booking created");
   }
 }
 

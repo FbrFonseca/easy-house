@@ -66,8 +66,8 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  showBookmarks() {
-    //redirects to bookmarks page that lists all adds bookmarked
+  goToBookmarks() {
+    this.navCtrl.navigateForward("/bookmarked-ads")
   }
 
   createAd() {

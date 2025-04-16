@@ -12,4 +12,5 @@ export interface Ad {
   bookmarks: number;
   createdAt: any;
   ownerId: string;
+  bookmarked?: boolean;
 }

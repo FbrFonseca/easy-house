@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonImg, IonIcon, IonButtons, IonButton, IonCard } from "@ionic/angular/standalone";
 import { NavController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { bookmarkOutline, chatbubblesOutline, eyeOutline, returnUpBack } from 'ionicons/icons';
 import { Ad } from 'src/app/models/ad.model';
+import { BookmarkService } from 'src/app/services/bookmark.service';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-ad-card',
   templateUrl: './ad-card.component.html',
@@ -13,8 +15,12 @@ import { Ad } from 'src/app/models/ad.model';
 })
 export class AdCardComponent {
 
+  private authService = inject(AuthService);
+  private bookmarkService = inject(BookmarkService);
+
   @Input() ad?: Ad;
   
+  userId: string = "";
   currentImageIndex = 0;
 
   constructor(private navCtrl: NavController) {
@@ -42,15 +48,28 @@ export class AdCardComponent {
       this.navCtrl.navigateForward(`/ad-page/${adId}`);
     }
   }
+
+  async toggleBookmark(event: Event) {
+    event.stopPropagation();
+
+    const user = this.authService.getCurrentUser();
+    if (!user || !this.ad) return;
+
+    this.userId = user.uid;
+
+    if (this.ad?.bookmarked) {
+      await this.bookmarkService.removeBookmark(this.userId, this.ad.id!);
+      this.ad.bookmarked = false;
+    } else {
+      await this.bookmarkService.addBookmark(this.userId, this.ad?.id!);
+      this.ad.bookmarked = true;
+    }
+  }
   
   
 
   bookViewing() {
 
-  }
-
-  addBookmark() {
-    
   }
 
 
