@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
   selector: 'app-ad-card',
   templateUrl: './ad-card.component.html',
   styleUrls: ['./ad-card.component.scss'],
-  imports:[CommonModule ,IonCard, IonImg, IonButtons, IonButton, IonIcon]
+  imports:[CommonModule ,IonCard, IonImg, IonButton]
 })
 export class AdCardComponent {
 

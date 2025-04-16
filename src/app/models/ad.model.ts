@@ -2,7 +2,7 @@ export interface Ad {
   id?: string;
   title: string;
   adType: string;
-  location: string;
+  eircode: string;
   description: string;
   price: number;
   bedrooms: number;
@@ -13,4 +13,6 @@ export interface Ad {
   createdAt: any;
   ownerId: string;
   bookmarked?: boolean;
+  latitude?: number;
+  longitude?: number;
 }

@@ -23,12 +23,12 @@
       ›
     </ion-button>
   </div>
-  
 
   <ion-chip color="primary">
     <ion-label>{{ ad.adType === 'rent' ? 'For Rent' : 'For Sale' }}</ion-label>
   </ion-chip>
 
+  <div *ngIf="ad?.latitude && ad?.longitude" id="map" class="map-container"></div>
 
   <div class="description-container">
     <div class="info">

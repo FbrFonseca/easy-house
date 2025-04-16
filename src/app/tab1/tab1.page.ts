@@ -9,6 +9,7 @@ import {
   IonIcon,
   IonContent,
   IonHeader,
+  IonSpinner,
   IonList,
   IonItem } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -24,6 +25,7 @@ import { AdService } from '../services/ad.service';
   imports: [
     IonList,
     IonItem,
+    IonSpinner,
     AdCardComponent,
     IonHeader,
     CommonModule,
@@ -40,6 +42,7 @@ export class Tab1Page implements OnInit {
 
   ads: Ad[] = [];
   userId: string = "";
+  loading = true;
 
   constructor() {
     addIcons({ bookmarks, add, chatbubble });
@@ -52,14 +55,17 @@ export class Tab1Page implements OnInit {
         this.fetchUserAds();
       } else {
         console.log("user not logged in");
+        this.loading = false;
       }
     })
   }
 
   fetchUserAds() {
     if (this.userId) {
+      this.loading = true;
       this.adService.getAdsByUser(this.userId).subscribe((ads) => {
         this.ads = ads;
+        this.loading = false;
       })
     } else {
       console.log("no user logged");
